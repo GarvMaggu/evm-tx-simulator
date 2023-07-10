@@ -208,11 +208,14 @@ export const getPayments = (trace: CallTrace): Payment[] => {
 let _nth = 0;
 
 export const searchForCall = (
-  trace: CallTrace,
+  trace: any,
   options: { to?: string; type?: CallType; sigHashes?: string[] },
   nth = 0
 ): CallTrace | undefined => {
   _nth = nth;
+  if (Array.isArray(trace)) {
+    trace = trace[0]
+  }
 
   let match = true;
   if (options.to && trace.to !== options.to) {
